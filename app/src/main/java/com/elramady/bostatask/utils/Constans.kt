@@ -10,3 +10,4 @@ const val GET_PHOTOS="photos"
 
 
 const val ALBUM_MODEL="album_model"
+const val IMAGE_URL="image_url"

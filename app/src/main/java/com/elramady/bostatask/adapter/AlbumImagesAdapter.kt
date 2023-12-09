@@ -1,6 +1,7 @@
 package com.elramady.bostatask.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,9 +11,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.RequestOptions
+import com.elramady.bostatask.AlbumDetailsActivity
+import com.elramady.bostatask.ImageDisplayActivity
 import com.elramady.bostatask.R
 import com.elramady.bostatask.databinding.ItemImageAlbumBinding
 import com.elramady.bostatask.models.AlbumImage
+import com.elramady.bostatask.utils.ALBUM_MODEL
+import com.elramady.bostatask.utils.IMAGE_URL
 
 
 private val USER_AGENT = "Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.181 Mobile Safari/537.36"
@@ -50,16 +55,23 @@ class AlbumImagesAdapter(val context:Context):
             val options = RequestOptions()
                 .placeholder(R.drawable.ic_search)
                 .error(R.drawable.ic_launcher_background)
-                .override(800,600)
+                .override(300,300)
 
-                    Glide.with(context).load(albumsImages.url+".png").apply(options).dontAnimate().into(binding.imageItemAlbum)
+            Glide.with(context).load(albumsImages.url+".png").apply(options).dontAnimate().into(binding.imageItemAlbum)
+
+            binding.imageItemAlbum.setOnClickListener {
+                val intent= Intent(context, ImageDisplayActivity::class.java)
+                intent.putExtra(IMAGE_URL,albumsImages.url+".png")
+                context.startActivity(intent)
+            }
 
 
 
 
-            val glideUrl = GlideUrl(
-                albumsImages.url,
-                LazyHeaders.Builder().addHeader("User-Agent", USER_AGENT).build())
+//
+//            val glideUrl = GlideUrl(
+//                albumsImages.url,
+//                LazyHeaders.Builder().addHeader("User-Agent", USER_AGENT).build())
 
         }
 
